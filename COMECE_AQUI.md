@@ -2,7 +2,7 @@
 
 ## ✅ Seu aplicativo está FUNCIONANDO!
 
-**URL:** https://deploy-ready-71.preview.emergentagent.com
+**URL:** https://praise-portal-1.preview.emergentagent.com
 
 Você já pode:
 - ✅ Acessar o aplicativo
