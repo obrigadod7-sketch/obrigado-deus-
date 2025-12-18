@@ -155,14 +155,14 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="text-center">
+            <div className="text-center px-4">
               <Button
                 data-testid="volunteer-register-button"
                 onClick={() => navigate('/volunteer-register')}
-                className="rounded-full px-10 py-6 text-lg font-bold bg-primary hover:bg-primary-hover shadow-lg"
+                className="rounded-full px-6 sm:px-10 py-5 sm:py-6 text-base sm:text-lg font-bold bg-primary hover:bg-primary-hover shadow-lg w-full sm:w-auto max-w-sm mx-auto"
               >
-                <Shield size={24} className="mr-2" />
-                Cadastrar como Voluntário Profissional
+                <Shield size={20} className="mr-2 flex-shrink-0" />
+                <span className="whitespace-normal sm:whitespace-nowrap">Cadastrar como Voluntário</span>
               </Button>
               <p className="text-sm text-textMuted mt-4">
                 Cadastro completo com validação de credenciais profissionais
