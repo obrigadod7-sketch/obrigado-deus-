@@ -427,29 +427,30 @@ async def get_services(category: Optional[str] = None):
 
 @api_router.post("/ai/chat")
 async def ai_chat(message_data: AIMessage, current_user: User = Depends(get_current_user)):
+    """
+    Endpoint de chat com IA - DESABILITADO PARA DEPLOY NO RENDER
+    O recurso de IA requer a biblioteca emergentintegrations que não está disponível no Render.
+    """
     try:
-        pdf_processor.load_index()
-        relevant_chunks = pdf_processor.search(message_data.message, k=3)
+        # Tenta buscar informações relevantes do PDF
+        relevant_chunks = []
+        try:
+            pdf_processor.load_index()
+            relevant_chunks = pdf_processor.search(message_data.message, k=3)
+        except Exception:
+            pass
         
-        context = "\n\n".join(relevant_chunks) if relevant_chunks else "Informação não encontrada no guia Watizat."
-        
-        system_message = f"""Você é um assistente especializado em ajudar migrantes em Paris. 
-        Use as informações do guia Watizat abaixo para responder perguntas.
-        Seja empático, claro e objetivo. Responda em {message_data.language}.
-        
-        Contexto do Watizat:
-        {context}
-        """
-        
-        chat = LlmChat(
-            api_key=os.environ['EMERGENT_LLM_KEY'],
-            session_id=f"user_{current_user.id}",
-            system_message=system_message
-        ).with_model("openai", "gpt-5.1")
-        
-        user_message = UserMessage(text=message_data.message)
-        response = await chat.send_message(user_message)
-        
+        # Mensagem padrão informando que o recurso de IA não está disponível
+        response = """Olá! O assistente de IA está temporariamente indisponível nesta versão.
+
+Por favor, utilize as outras funcionalidades do Watizat:
+- Navegue pelo Feed para encontrar ou oferecer ajuda
+- Use o Mapa de Ajuda para encontrar locais de assistência próximos
+- Envie mensagens diretas para outros usuários
+- Consulte os voluntários profissionais disponíveis
+
+Para mais informações, entre em contato com a equipe Watizat."""
+
         chat_record = {
             'id': str(uuid.uuid4()),
             'user_id': current_user.id,
